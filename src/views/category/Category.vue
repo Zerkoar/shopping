@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import BScroll from "better-scroll"
 
 export default {
   name: "Category",
@@ -116,7 +117,7 @@ export default {
   },
   mounted() {
     // console.log(document.querySelector(".wrapper"));
-    // this.scroll = new BScroll(document.querySelector(".wrapper"), {});
+    this.scroll = new BScroll(document.querySelector(".wrapper"), {});
   },
 };
 </script>
@@ -126,7 +127,7 @@ export default {
   height: 150px;
   background-color: blue;
 
-  /* overflow: hidden; */
+  overflow: hidden;
   /* overflow-y: scroll; */
 }
 </style>
