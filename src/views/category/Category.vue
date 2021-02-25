@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import BScroll from "better-scroll"
+import BScroll from "better-scroll";
 
 export default {
   name: "Category",
@@ -116,14 +116,24 @@ export default {
     };
   },
   mounted() {
-    // console.log(document.querySelector(".wrapper"));
-    this.scroll = new BScroll(document.querySelector(".wrapper"), {});
+    this.scroll = new BScroll(document.querySelector(".wrapper"), {
+      probeType: 3,
+      pullUpLoad: true,
+    });
+
+    this.scroll.on("scroll", (position) => {
+      console.log(position);
+    });
+
+    this.scroll.on("pullingUp",() => {
+       console.log("加载");
+    })
   },
 };
 </script>
 
 <style scoped>
-.content {
+.wrapper {
   height: 150px;
   background-color: blue;
 

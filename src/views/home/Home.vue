@@ -1,6 +1,7 @@
 <template>
   <div id="home">
-      <nav-bar class="home-nav"><div slot="center">星奇</div></nav-bar>
+    <nav-bar class="home-nav"><div slot="center">星奇</div></nav-bar>
+    <scroll class="scroll"  ref="scroll">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -9,8 +10,10 @@
         :titles="['流行', '新款', '精选']"
         @tabClick="tabClick"
       />
-      <goods-list :goods="showGoods" />
-      <back-top />
+      <goods-list :goods="showGoods" ></goods-list>
+    </scroll>
+
+    <back-top @click.native="backClick" />
   </div>
 </template>
 
@@ -27,6 +30,7 @@ import TabControl from "components/content/TabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
 import GoodsListItem from "components/content/goods/GoodsListItem";
 import BackTop from "../../components/content/backTop/BackTop.vue";
+import Scroll from "../../components/content/scroll/Scroll";
 
 export default {
   name: "Home",
@@ -39,6 +43,7 @@ export default {
     GoodsList,
     GoodsListItem,
     BackTop,
+    Scroll,
   },
   data() {
     return {
@@ -76,6 +81,10 @@ export default {
       }
     },
 
+    backClick(){
+      this.$refs.scroll.scrollTo(0,500)
+    },
+
     //  网络请求方法
     //
     getHomeMultidata() {
@@ -102,9 +111,9 @@ export default {
 
 <style scoped>
 #home {
-  padding-top: 44px;
-  padding-bottom: 49px;
+  height: 100vh;
 
+  position: relative;
 }
 
 .home-nav {
@@ -115,11 +124,19 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  z-index: 9; 
+  z-index: 9;
 }
 
+.scroll {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  /* 让鼠标滚轮不能滚 */
+  overflow: hidden;
+}
 
 /* .tab-control {
 } */
-
 </style>
